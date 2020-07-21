@@ -1,0 +1,32 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectUAS"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ProjectUAS.LoginWindow"
+        mc:Ignorable="d"
+        Title="LoginWindow" ResizeMode="NoResize" Height="483.856" Width="816.207">
+    <Grid Margin="0,0,-13,-2" Background="#FF59B2C9">
+
+        <materialDesign:Card HorizontalAlignment="Left" Margin="0,-6,0,-23" VerticalAlignment="Top" Height="463" Width="463" Background="White">
+            <Canvas HorizontalAlignment="Left" Height="450" Margin="-1,12,0,0" VerticalAlignment="Top" Width="464">
+                <Image Source="C:\Users\A S U S\Pictures\foto\warehouse6.jpg" Height="351" Canvas.Left="-72" Canvas.Top="-15" Width="545"/>
+                <Label Content="GUDANGKU APP!" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="93" Canvas.Top="330" FontSize="30" FontFamily="Roboto" FontWeight="Bold"/>
+            </Canvas>
+        </materialDesign:Card>
+        <TextBox HorizontalAlignment="Left" Name="usernameInput" Height="37" Margin="520,133,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="239"/>
+        <PasswordBox HorizontalAlignment="Left" Name="passwordInput" Height="37" Margin="519,191,0,0" VerticalAlignment="Top" Width="239"/>
+        <Button BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Name="loginButton" Margin="518,253,0,0" VerticalAlignment="Top" Width="120" Click="loginButton_Click">
+            <Rectangle Fill="#FF9BD691" HorizontalAlignment="Left" Height="27" Stroke="Black" VerticalAlignment="Top" Width="120" StrokeThickness="0"/>
+        </Button>
+        <Label Content="LOGIN TO ACCESS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" FontFamily="Roboto" FontWeight="Bold" Margin="522,63,0,0" Foreground="White"/>
+        <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Roboto" FontWeight="Bold" Margin="554,255,0,0" Foreground="White"/>
+        <Button BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Left" Margin="640,254,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click">
+            <Rectangle Fill="#FFEE2C6A" HorizontalAlignment="Left" Height="27" Stroke="Black" VerticalAlignment="Top" Width="116" StrokeThickness="0"/>
+        </Button>
+        <Label Content="Keluar" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Roboto" FontWeight="Bold" Margin="678,256,0,0" Foreground="White"/>
+        <materialDesign:PackIcon Kind="Person" Foreground="White" Height="42" Width="24" Margin="492,133,0,0" RenderTransformOrigin="0.333,0.524"/>
+        <materialDesign:PackIcon Kind="PasswordReset" Foreground="White" Height="42" Width="24" Margin="490,188,0,0" RenderTransformOrigin="0.333,0.524"/>
+    </Grid>
+</Window>

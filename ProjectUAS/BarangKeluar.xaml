@@ -1,0 +1,49 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectUAS"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ProjectUAS.BarangKeluar"
+        mc:Ignorable="d"
+        Title="BarangKeluar" Height="713.333" Width="1000">
+    <Grid Background="#FF47898C">
+
+        <Border Background="#FF5D9ACB" BorderBrush="#ff707070" Margin="1,-1,798,-2"  >
+            <Canvas HorizontalAlignment="Left" Height="237" VerticalAlignment="Top" Width="162" RenderTransformOrigin="1.373,0.458" Margin="19,59,0,0">
+                <Button x:Name="homeBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Click="homeBtn_Click">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="Home" Foreground="White" Height="42" Width="24" Margin="9,-2,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="daftarBarangBtn" Background="Transparent" Height="52" Width="159" BorderThickness="0" Canvas.Left="-2" Canvas.Top="50" Click="daftarBarangBtn_Click">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="Warehouse" Foreground="White" Height="42" Width="24" Margin="10,-1,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="barangMasukBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Canvas.Top="105" Click="barangMasukBtn_Click" >
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="146" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="InboxArrowDown" Foreground="White" Height="42" Width="24" Margin="7,0,0,-1" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="barangKeluarBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Canvas.Top="160" Click="barangKeluarBtn_Click" >
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="InboxArrowUp" Foreground="White" Height="42" Width="24" Margin="7,-2,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Label Content="Barang Keluar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" Canvas.Left="55" Canvas.Top="173"/>
+                <Label Content="Barang Masuk" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" Canvas.Left="54" Canvas.Top="117"/>
+                <Label Content="Daftar Barang" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Foreground="White" Canvas.Left="54" Canvas.Top="64"/>
+                <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91"  Foreground="White" Canvas.Left="52" Canvas.Top="14"/>
+            </Canvas>
+        </Border>
+        <Label Content="Barang Keluar" HorizontalAlignment="Left" Margin="532,32,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <materialDesign:Card HorizontalAlignment="Left" Margin="212,293,0,0" VerticalAlignment="Top" Height="347" Width="764" Background="White">
+            <DataGrid x:Name="dataBarangKeluar" HorizontalAlignment="Left" Height="315" Margin="12,21,0,0" VerticalAlignment="Top" Width="738"/>
+        </materialDesign:Card>
+        <materialDesign:Card HorizontalAlignment="Left" Margin="224,61,0,0" VerticalAlignment="Top" Background="White" Height="165" Width="754">
+            <Image Source="C:\Users\A S U S\Pictures\foto\warehouse5.jpg" HorizontalAlignment="Left" Height="875" Margin="-51,-424,-3086,-286" VerticalAlignment="Top" Width="3891"/>
+        </materialDesign:Card>
+        <Button Content="Tambah Data Barang Keluar" Name="tambahBarangKeluarBtn" HorizontalAlignment="Left" Margin="218,650,0,0" VerticalAlignment="Top" Width="168" Click="tambahBarangKeluarBtn_Click"/>
+    </Grid>
+</Window>

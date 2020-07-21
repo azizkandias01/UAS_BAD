@@ -1,0 +1,68 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectUAS"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ProjectUAS.BarangMasuk"
+        mc:Ignorable="d"
+        Title="BarangMasuk" Height="713.333" Width="1000">
+    <Window.Resources>
+        <local:DBGudangDataSet x:Key="DBGudangDataSetDataSource" d:IsDataSource="True"/>
+    </Window.Resources>
+    <Grid Background="#FF6887B3">
+
+        <Border Background="#FF5D9ACB" BorderBrush="#ff707070" Margin="1,-1,804,2"  >
+            <Canvas HorizontalAlignment="Left" Height="237" VerticalAlignment="Top" Width="162" RenderTransformOrigin="1.373,0.458" Margin="19,59,0,0">
+                <Button x:Name="homeBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Click="homeBtn_Click">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="Home" Foreground="White" Height="42" Width="24" Margin="9,-2,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="barangMasukBtn" Width="182" Canvas.Left="182" Canvas.Top="566" Background="Transparent" Click="barangMasukBtn_Click" BorderThickness="0">
+                    <Image Source="C:\Users\A S U S\Pictures\foto\button1.png" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="160"/>
+                </Button>
+                <Button x:Name="daftarBarangBtn" Background="Transparent" Height="52" Width="159" BorderThickness="0" Canvas.Left="-2" Canvas.Top="50" Click="daftarBarangBtn_Click">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="Warehouse" Foreground="White" Height="42" Width="24" Margin="10,-1,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="homeBtn_Copy1" Background="Transparent" Height="52" Width="156" BorderThickness="0" Canvas.Top="105">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="146" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="InboxArrowDown" Foreground="White" Height="42" Width="24" Margin="7,0,0,-1" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Button x:Name="barangKeluatBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Canvas.Top="160" Click="barangKeluarBtn_Click">
+                    <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
+                        <materialDesign:PackIcon Kind="InboxArrowUp" Foreground="White" Height="42" Width="24" Margin="7,-2,0,0" RenderTransformOrigin="0.333,0.524"/>
+                    </materialDesign:Card>
+                </Button>
+                <Label Content="Barang Keluar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" Canvas.Left="55" Canvas.Top="173"/>
+                <Label Content="Barang Masuk" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" Canvas.Left="54" Canvas.Top="117"/>
+                <Label Content="Daftar Barang" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Foreground="White" Canvas.Left="54" Canvas.Top="64"/>
+                <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91"  Foreground="White" Canvas.Left="52" Canvas.Top="14"/>
+            </Canvas>
+        </Border>
+
+        <materialDesign:Card HorizontalAlignment="Left" Margin="213,263,0,0" VerticalAlignment="Top" Height="347" Width="764" Background="White">
+            <DataGrid x:Name="dataBarangMasuk" HorizontalAlignment="Left" Height="315" Margin="12,21,0,0" VerticalAlignment="Top" Width="738" SelectionChanged="dataBarangMasuk_SelectionChanged"/>
+        </materialDesign:Card>
+        <materialDesign:Card HorizontalAlignment="Left" Margin="207,8,0,0" VerticalAlignment="Top" Height="196" Width="754" Background="#FFF7F7F7">
+            <Image Source="C:\Users\A S U S\Pictures\foto\warehouse2.jpg" Margin="-96,-132,-96,-28"/>
+        </materialDesign:Card>
+        <Button x:Name="deleteBtn" Background="Transparent" HorizontalAlignment="Left" Margin="385,623,0,-3" VerticalAlignment="Top" Width="110" Height="49" BorderThickness="0" Click="deleteBtn_Click">
+            <Image Source="C:\Users\A S U S\Pictures\foto\button2.png" HorizontalAlignment="Left" Height="47" VerticalAlignment="Top" Width="134"/>
+        </Button>
+        <Button Background="Transparent" BorderThickness="0" x:Name="editBtn" HorizontalAlignment="Left" Margin="506,624,0,-1" VerticalAlignment="Top" Width="119" Height="46" Click="editBtn_Click">
+            <Image Source="C:\Users\A S U S\Pictures\foto\button3.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="112"/>
+        </Button>
+        <Label Content="Tambah Data Barang &#xA;&#x9;Masuk" HorizontalAlignment="Left" Margin="222,624,0,0" VerticalAlignment="Top" Foreground="White" Width="142"/>
+        <Label Content="Delete" HorizontalAlignment="Left" Margin="416,631,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Edit" HorizontalAlignment="Left" Margin="551,630,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <materialDesign:Card HorizontalAlignment="Left" Margin="212,214,0,0" VerticalAlignment="Top" Height="32" Width="758" Background="White" UniformCornerRadius="20">
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="30,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="713" x:Name="searchInput" BorderThickness="0,0,0,3" TextChanged="searchInput_TextChanged"/>
+        </materialDesign:Card>
+        <materialDesign:PackIcon Kind="Search" Foreground="SkyBlue" Height="42" Width="24" Margin="219,208,0,0" RenderTransformOrigin="0.333,0.524"/>
+
+    </Grid>
+</Window>
