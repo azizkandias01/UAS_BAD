@@ -94,9 +94,9 @@ namespace ProjectUAS
                         tambahDataBarangMasuk();
                         updateJumlah();
                         MessageBox.Show("Berhasil Memasukan Data Barang!");
-
+                        refreshTable();
+                        new BarangMasuk().Show();
                         this.Close();
-                        barangMasuk.Show();
                     }
                 }
                 else
@@ -186,5 +186,6 @@ namespace ProjectUAS
         {
             barangMasuk.Show();
         }
+
     }
 }

@@ -30,7 +30,7 @@ namespace ProjectUAS
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             fillTable();
-            
+
         }
         public void fillTable()
         {
@@ -67,6 +67,24 @@ namespace ProjectUAS
         {
             new TambahBarangKeluar().Show();
             this.Close();
+        }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            dadapter = new SqlDataAdapter("select * from BarangKekuar where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
+            dset = new System.Data.DataSet();
+            dadapter.Fill(dset);
+            dataBarangKeluar.ItemsSource = dset.Tables[0].AsDataView();
         }
     }
 }

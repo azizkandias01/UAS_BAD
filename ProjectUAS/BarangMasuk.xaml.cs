@@ -127,18 +127,18 @@ namespace ProjectUAS
             this.Close();
         }
 
-        private void barangKeluarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            new BarangKeluar().Show();
-            this.Close();
-        }
-
         private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             dadapter = new SqlDataAdapter("select * from BarangMasuk where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
             dset = new System.Data.DataSet();
             dadapter.Fill(dset);
             dataBarangMasuk.ItemsSource = dset.Tables[0].AsDataView();
+        }
+
+        private void barangKeluarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new BarangKeluar().Show();
+            this.Close();
         }
     }
 }

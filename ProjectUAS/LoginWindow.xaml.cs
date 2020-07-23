@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,17 +22,12 @@ namespace ProjectUAS
     /// </summary>
     public partial class LoginWindow : Window
     {
-        [DllImport("user32.dll")]
-        static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-
-        [DllImport("user32.dll")]
-        static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
-
-
-        const uint MF_BYCOMMAND = 0x00000000;
-        const uint MF_GRAYED = 0x00000001;
-
-        const uint SC_CLOSE = 0xF060;
+        SqlDataAdapter dadapter;
+        DataSet dset;
+        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
+        SqlConnection con = new SqlConnection(connstring);
+        string username = "";
+        string password = "";
         public LoginWindow()
         {
             InitializeComponent();
@@ -44,9 +41,50 @@ namespace ProjectUAS
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-          
+
+            /*if (CekLogin())
+            {
+                new MainWindow().Show();
+                this.Close();
+
+            }
+            else
+            {
+                MessageBox.Show("Bad Credential!!");
+            }*/
             new MainWindow().Show();
             this.Close();
+        }
+        private Boolean CekLogin()
+        {
+            Boolean hasil = false;
+            try
+            {
+                con.Open();
+                string query = "select * from Akun WHERE username='" + usernameInput.Text + "' AND password = '" + passwordInput.Password + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                var Reader = cmd.ExecuteReader();
+                if (Reader.HasRows)
+                {
+                    while (Reader.Read())
+                    {
+                        username = Reader.GetString(1);
+                        password = Reader.GetString(2);
+                    }
+                    hasil = true;
+                    return hasil;
+                }
+                else
+                {
+                    hasil = false;
+                    return hasil;
+                }
+            }
+            finally
+            {
+                con.Close();
+               
+            }
         }
     }
 }
