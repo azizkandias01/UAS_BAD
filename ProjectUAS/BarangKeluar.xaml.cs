@@ -25,6 +25,10 @@ namespace ProjectUAS
         DataSet dset;
         static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
         SqlConnection con = new SqlConnection(connstring);
+        Boolean isSelected = false;
+        int id = 0;
+        int idBarangKeluar = 0;
+        int jumlah = 0;
         public BarangKeluar()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -71,20 +75,75 @@ namespace ProjectUAS
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (isSelected)
+            {
+                if (MessageBox.Show("Yakin Menghapus Data?", "Hapus Data", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    con.Open();
+                    string query = "DELETE FROM BarangKeluar WHERE idBarangKeluar = @idBarangMasuk";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@idbarangMasuk", idBarangKeluar);
+                    cmd.ExecuteNonQuery();
+                    fillTable();
+                    updateJumlah();
+                    con.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Anda Belum Memilih Transaksi Untuk Dihapus!");
+            }
 
+        }
+        private void updateJumlah()
+        {
+            string query = "UPDATE Barang SET jumlah_barang+=@jumlah WHERE id_barang = @idBarang";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@idbarang", id);
+            cmd.Parameters.AddWithValue("@jumlah", jumlah);
+            cmd.ExecuteNonQuery();
+            fillTable();
         }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (isSelected)
+            {
 
+                new EditBarangKeluar(id).Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Pilih Dulu Transaksi yang ingin diedit!");
+            }
         }
 
         private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dadapter = new SqlDataAdapter("select * from BarangKekuar where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
+            dadapter = new SqlDataAdapter("select * from BarangKeluar where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
             dset = new System.Data.DataSet();
             dadapter.Fill(dset);
             dataBarangKeluar.ItemsSource = dset.Tables[0].AsDataView();
+        }
+
+        private void dataBarangKeluar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+          
+                try
+                {
+                    isSelected = true;
+                    DataRowView row = (DataRowView)dataBarangKeluar.SelectedItems[0];
+                    id = Convert.ToInt32(row["idBarang"]);
+                    idBarangKeluar = Convert.ToInt32(row["idBarangKeluar"]);
+                    jumlah = Convert.ToInt32(row["jumlahBarang"]);
+                }
+                catch (Exception ex)
+                {
+
+                }            
         }
     }
 }

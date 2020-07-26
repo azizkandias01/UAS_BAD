@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectUAS"
         mc:Ignorable="d"
-        Title="EditBarangKeluar" Height="450" Width="800">
+        Title="EditBarangKeluar"  Height="586.107" Width="596.5">
     <Grid>
-        
+        <GroupBox Header="Input Data" HorizontalAlignment="Left" Height="458" Margin="20,71,0,0" VerticalAlignment="Top" Width="550">
+            <Canvas HorizontalAlignment="Left" Height="436" Margin="0,7,0,-19" VerticalAlignment="Top" Width="532">
+                <Label Content="ID Barang" Name="idbbbbb" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="21" Canvas.Top="12"/>
+                <TextBox x:Name="idBarangEdit" IsReadOnly="True" Height="23" Canvas.Left="25" TextWrapping="Wrap" Canvas.Top="46" Width="482"/>
+                <Label Content="Nama Barang" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="23" Canvas.Top="75"/>
+                <TextBox x:Name="namaBarangEdit" IsReadOnly="True" Height="23" Canvas.Left="27" TextWrapping="Wrap" Canvas.Top="106" Width="482"/>
+                <Label Content="Jumlah" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="29" Canvas.Top="143"/>
+                <TextBox Height="23" Canvas.Left="28" TextWrapping="Wrap" x:Name="jumlahBarangEdit" Canvas.Top="175" Width="482"/>
+                <Label Content="Harga" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="23" Canvas.Top="210"/>
+                <TextBox Height="23" Canvas.Left="28" TextWrapping="Wrap" IsReadOnly="True" x:Name="hargaBarangEdit" Canvas.Top="242" Width="482"/>
+                <Label Content="Customer" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="23" Canvas.Top="272"/>
+                <TextBox Height="23" Canvas.Left="26" TextWrapping="Wrap" Name="supplierBarangEdit" Canvas.Top="304" Width="482"/>
+                <Label Content="Tanggal" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="26" Canvas.Top="331"/>
+                <DatePicker Name="tanggalBarangEdit" Canvas.Left="28" Canvas.Top="363" Width="482" Height="28"/>
+                <Button Content="Update" Name="tambahBarangMasukBtn" Canvas.Left="362" Canvas.Top="405" Width="75" Click="tambahBarangMasukBtn_Click"/>
+                <Button Content="Batal" x:Name="batalBtn" Canvas.Left="450" Canvas.Top="404" Width="75" Click="batalBtn_Click" />
+            </Canvas>
+        </GroupBox>
     </Grid>
 </Window>

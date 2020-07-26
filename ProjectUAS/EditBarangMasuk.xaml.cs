@@ -104,5 +104,11 @@ namespace ProjectUAS
                 this.Close();
             }
         }
+
+        private void batalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new BarangMasuk().Show();
+            this.Close();
+        }
     }
 }

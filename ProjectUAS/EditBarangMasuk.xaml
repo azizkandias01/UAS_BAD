@@ -23,7 +23,7 @@
                 <Label Content="Tanggal" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="26" Canvas.Top="331"/>
                 <DatePicker Name="tanggalBarangEdit" Canvas.Left="28" Canvas.Top="363" Width="482" Height="28"/>
                 <Button Content="Update" Name="tambahBarangMasukBtn" Canvas.Left="362" Canvas.Top="405" Width="75" Click="tambahBarangMasukBtn_Click"/>
-                <Button Content="Batal" x:Name="batalBtn" Canvas.Left="450" Canvas.Top="404" Width="75" />
+                <Button Content="Batal" x:Name="batalBtn" Canvas.Left="450" Canvas.Top="404" Width="75" Click="batalBtn_Click" />
             </Canvas>
         </GroupBox>
     </Grid>           

@@ -39,7 +39,7 @@
         </Border>
         <Label Content="Daftar Barang Keluar" HorizontalAlignment="Left" Margin="445,13,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontWeight="Bold"/>
         <materialDesign:Card HorizontalAlignment="Left" Margin="215,294,0,0" VerticalAlignment="Top" Height="348" Width="764" Background="White">
-            <DataGrid x:Name="dataBarangKeluar" HorizontalAlignment="Left" Height="315" Margin="12,21,0,0" VerticalAlignment="Top" Width="738"/>
+            <DataGrid x:Name="dataBarangKeluar" HorizontalAlignment="Left" Height="315" Margin="12,21,0,0" VerticalAlignment="Top" Width="738" SelectionChanged="dataBarangKeluar_SelectionChanged"/>
         </materialDesign:Card>
         <materialDesign:Card HorizontalAlignment="Left" Margin="225,71,0,0" VerticalAlignment="Top" Background="White" Height="165" Width="742">
             <Image Source="C:\Users\A S U S\Pictures\foto\warehouse5.jpg" HorizontalAlignment="Left" Height="810" Margin="-3,-390,-3096,-255" VerticalAlignment="Top" Width="3841"/>
