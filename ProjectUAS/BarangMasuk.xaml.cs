@@ -140,5 +140,18 @@ namespace ProjectUAS
             new BarangKeluar().Show();
             this.Close();
         }
+
+        private void logout_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Yakin Akan Keluar?", "Keluar?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+
+            }
+            else
+            {
+                new LoginWindow().Show();
+                this.Close();
+            }
+        }
     }
 }

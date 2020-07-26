@@ -194,9 +194,15 @@ namespace ProjectUAS
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Anda Telah Logout");
-            new LoginWindow().Show();
-            this.Close();
+            if (MessageBox.Show("Yakin Akan Keluar?", "Keluar?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+
+            }
+            else
+            {
+                new LoginWindow().Show();
+                this.Close();
+            }
         }
         private List<double> getCartMasuk()
         {

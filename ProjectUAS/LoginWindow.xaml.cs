@@ -42,7 +42,7 @@ namespace ProjectUAS
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
 
-            /*if (CekLogin())
+            if (CekLogin())
             {
                 new MainWindow().Show();
                 this.Close();
@@ -51,9 +51,7 @@ namespace ProjectUAS
             else
             {
                 MessageBox.Show("Bad Credential!!");
-            }*/
-            new MainWindow().Show();
-            this.Close();
+            }
         }
         private Boolean CekLogin()
         {

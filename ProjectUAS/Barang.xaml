@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectUAS"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"   
-        Title="MainWindow" Height="700" Width="1000"
+        Title="MainWindow" Height="737" Width="1000"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
          TextElement.FontWeight="Regular"
          TextElement.FontSize="13"
@@ -19,8 +19,7 @@
         <local:DBGudangDataSet x:Key="dBGudangDataSet"/>
         <CollectionViewSource x:Key="barangViewSource" Source="{Binding Barang, Source={StaticResource dBGudangDataSet}}"/>
     </Window.Resources>
-    <Grid Uid="Web 1920 – 2"  Width="1000" Height="700" Background="#FF4A7BA6" ClipToBounds="True" DataContext="{StaticResource barangViewSource}" >
-        <Border Background="#ff3e93ff" BorderBrush="#ff707070" Margin="0,0,813,8"  />
+    <Grid Uid="Web 1920 – 2"  Width="1000" Background="#FF4A7BA6" ClipToBounds="True" DataContext="{StaticResource barangViewSource}" Margin="0,0,-8,3" >
         <materialDesign:Card HorizontalAlignment="Left" Margin="212,367,0,0" VerticalAlignment="Top" Height="282" Width="763" Background="White" DataContext="{Binding Source={StaticResource DBGudangDataSetDataSource}}">
             <DataGrid Name="dataBarang" HorizontalAlignment="Left" Height="258" Margin="12,12,0,0" VerticalAlignment="Top" Width="744" BorderThickness="0"  DataContext="{Binding}" MaxColumnWidth="Infinity" SnapsToDevicePixels="True" SelectionChanged="dataBarang_SelectionChanged" Background="#FF5D9ACB"/>
 
@@ -45,7 +44,7 @@
             </Canvas>
         </materialDesign:Card>
         <Label Content="DAFTAR SEMUA BARANG" HorizontalAlignment="Left" Margin="451,15,0,0" VerticalAlignment="Top" Width="270" FontWeight="Bold" FontSize="18" Foreground="White"/>
-        <Border Background="#FF5D9ACB" BorderBrush="#ff707070" Margin="1,-1,806,16"  >
+        <Border Background="#FF5D9ACB" BorderBrush="#ff707070" Margin="0,-2,808,0"  >
             <Canvas HorizontalAlignment="Left" Height="237" VerticalAlignment="Top" Width="162" RenderTransformOrigin="1.373,0.458" Margin="19,59,0,0">
                 <Button x:Name="homeBtn" Background="Transparent" Height="52" Width="156" BorderThickness="0" Click="homeBtn_Click">
                     <materialDesign:Card Canvas.Left="6" Canvas.Top="10" Height="41" Width="144" Background="#FF5D9ACB">
@@ -73,5 +72,11 @@
                 <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91"  Foreground="White" Canvas.Left="52" Canvas.Top="14"/>
             </Canvas>
         </Border>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="49,586,0,0" VerticalAlignment="Top" Width="100">
+            <Button BorderThickness="0" x:Name="logout" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Height="47"  Canvas.Left="-8" Canvas.Top="3" Click="logout_Click">
+                <materialDesign:PackIcon Kind="Logout" Foreground="White" Height="48" Width="64" RenderTransformOrigin="0.333,0.524"/>
+            </Button>
+            <Label Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Canvas.Left="20" Canvas.Top="54"/>
+        </Canvas>
     </Grid>
 </Window>

@@ -27,6 +27,7 @@ namespace ProjectUAS
         static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
         SqlConnection con = new SqlConnection(connstring);
         Boolean isSelected = false;
+        int jumlahLama = 0;
         public TambahBarangKeluar()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace ProjectUAS
                 DataRowView row = (DataRowView)dataBarangTambah.SelectedItems[0];
                 string nama = row["nama_barang"].ToString();
                 int id = Convert.ToInt32(row["id_barang"]);
-                int jumlah = Convert.ToInt32(row["jumlah_barang"]);
+                jumlahLama = Convert.ToInt32(row["jumlah_barang"]);
                 int harga = Convert.ToInt32(row["harga_barang"]);
 
                 namaBarang.Text = nama;
@@ -70,26 +71,26 @@ namespace ProjectUAS
         {
             try
             {
-                String tanggal = tanggalBarang.SelectedDate.Value.Date.ToShortDateString().ToString();
-                string nama = namaBarang.Text;
+                    String tanggal = tanggalBarang.SelectedDate.Value.Date.ToShortDateString().ToString();
+                    string nama = namaBarang.Text;
+                    int harga = Convert.ToInt32(hargaBarang.Text);
+                    int id = Convert.ToInt32(idBarang.Text);
+                    string supplier = supplierBarang.Text;
                 int jumlah = Convert.ToInt32(jumlahBarang.Text);
-                int harga = Convert.ToInt32(hargaBarang.Text);
-                int id = Convert.ToInt32(idBarang.Text);
-                string supplier = supplierBarang.Text;
                 if (con.State == ConnectionState.Closed)
-                {
-                    con.Open();
-                    string query = "INSERT INTO BarangKeluar values(@idbarang,@nama_barang,@jumlah_barang,@harga_barang,@customer,@tanggal)";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@idbarang", id);
-                    cmd.Parameters.AddWithValue("@nama_barang", nama);
-                    cmd.Parameters.AddWithValue("@jumlah_barang", jumlah);
-                    cmd.Parameters.AddWithValue("@harga_barang", harga);
-                    cmd.Parameters.AddWithValue("@customer", supplier);
-                    cmd.Parameters.AddWithValue("@tanggal", tanggal);
-                    cmd.ExecuteNonQuery();
-                }
+                    {
+                        con.Open();
+                        string query = "INSERT INTO BarangKeluar values(@idbarang,@nama_barang,@jumlah_barang,@harga_barang,@customer,@tanggal)";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idbarang", id);
+                        cmd.Parameters.AddWithValue("@nama_barang", nama);
+                        cmd.Parameters.AddWithValue("@jumlah_barang", jumlah);
+                        cmd.Parameters.AddWithValue("@harga_barang", harga);
+                        cmd.Parameters.AddWithValue("@customer", supplier);
+                        cmd.Parameters.AddWithValue("@tanggal", tanggal);
+                        cmd.ExecuteNonQuery();
+                    }                
             }
             catch (Exception ex)
             {
@@ -138,6 +139,8 @@ namespace ProjectUAS
             }
             else
             {
+                int jumlah = 0;
+                jumlah = Convert.ToInt32(jumlahBarang.Text);
                 if (jumlahBarang.Text != null && supplierBarang.Text != null && tanggalBarang.SelectedDate != null)
                 {
                     if (MessageBox.Show("Yakin Tambahkan Data?", "Tambah Data", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
@@ -146,12 +149,20 @@ namespace ProjectUAS
                     }
                     else
                     {
-                        tambahDataBarangMasuk();
-                        updateJumlah();
-                        MessageBox.Show("Berhasil Memasukan Data Barang!");
+                        
+                        if (jumlah > jumlahLama)
+                        {
+                            MessageBox.Show("Barang yang dikeluarkan melebihi jumlah stok barang!");
+                        }
+                        else
+                        {
+                            tambahDataBarangMasuk();
+                            updateJumlah();
+                            MessageBox.Show("Berhasil Memasukan Data Barang!");
 
-                        this.Close();
-                        new BarangKeluar().Show();
+                            this.Close();
+                            new BarangKeluar().Show();
+                        }
                     }
                 }
                 else
@@ -160,6 +171,12 @@ namespace ProjectUAS
                 }
 
             }
+        }
+
+        private void batalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new BarangKeluar().Show();
+            this.Close();
         }
     }
 }

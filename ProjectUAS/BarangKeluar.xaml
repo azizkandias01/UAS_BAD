@@ -60,5 +60,11 @@
             <TextBox HorizontalAlignment="Left" Height="23" Margin="30,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="713" x:Name="searchInput" BorderThickness="0,0,0,3" TextChanged="searchInput_TextChanged"/>
         </materialDesign:Card>
         <materialDesign:PackIcon Kind="Search" Foreground="SkyBlue" Height="42" Width="24" Margin="218,242,0,0" RenderTransformOrigin="0.333,0.524"/>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="49,586,0,0" VerticalAlignment="Top" Width="100">
+            <Button BorderThickness="0" x:Name="logout" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Height="47"  Canvas.Left="-8" Canvas.Top="3" Click="logout_Click">
+                <materialDesign:PackIcon Kind="Logout" Foreground="White" Height="48" Width="64" RenderTransformOrigin="0.333,0.524"/>
+            </Button>
+            <Label Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Canvas.Left="20" Canvas.Top="54"/>
+        </Canvas>
     </Grid>
 </Window>

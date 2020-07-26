@@ -101,8 +101,12 @@
                 <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91"  Foreground="White" Canvas.Left="52" Canvas.Top="14"/>
             </Canvas>
         </Border>
-        <Button BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Margin="35,609,0,0" VerticalAlignment="Top" Width="112" Height="47" Click="Button_Click">
-            <materialDesign:PackIcon Kind="Logout" Foreground="White" Height="48" Width="64" RenderTransformOrigin="0.333,0.524"/>
-        </Button>
+        <Label Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="68,655,0,0" VerticalAlignment="Top"/>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="49,586,0,0" VerticalAlignment="Top" Width="100">
+            <Button BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Height="47" Click="Button_Click" Canvas.Left="-8" Canvas.Top="3">
+                <materialDesign:PackIcon Kind="Logout" Foreground="White" Height="48" Width="64" RenderTransformOrigin="0.333,0.524"/>
+            </Button>
+            <Label Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Canvas.Left="20" Canvas.Top="54"/>
+        </Canvas>
     </Grid>
 </Window>
