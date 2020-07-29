@@ -21,14 +21,12 @@ namespace ProjectUAS
     /// </summary>
     public partial class BarangMasuk : Window
     {
-        SqlDataAdapter dadapter;
-        DataSet dset;
-        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
-        SqlConnection con = new SqlConnection(connstring);
+        SqlConnection con = koneksi.SqlConnection();
         Boolean isSelected = false;
         int id = 0;
         int idBarangMasuk = 0;
         int jumlah = 0;
+        koneksi Data = new koneksi();
         public BarangMasuk()
         {
             InitializeComponent();
@@ -60,10 +58,7 @@ namespace ProjectUAS
         }
         public void refreshTableBarangMasuk()
         {
-            dadapter = new SqlDataAdapter("select * from BarangMasuk", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarangMasuk.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarangMasuk.ItemsSource = Data.fillTable("select * from BarangMasuk").Tables[0].AsDataView();
         }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
@@ -88,13 +83,10 @@ namespace ProjectUAS
                 if (MessageBox.Show("Yakin Menghapus Data?", "Hapus Data", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     con.Open();
-                    string query = "DELETE FROM BarangMasuk WHERE idBarangMasuk = @idBarangMasuk";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@idbarangMasuk", idBarangMasuk);
-                    cmd.ExecuteNonQuery();
+                    Data.Delete("BarangMasuk","idBarangMasuk",idBarangMasuk);
                     refreshTableBarangMasuk();
                     updateJumlah();
+                    con.Close();
                 }
             }
             else
@@ -104,14 +96,7 @@ namespace ProjectUAS
         }
         private void updateJumlah()
         {
-            string query = "UPDATE Barang SET jumlah_barang-=@jumlah WHERE id_barang = @idBarang";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@idbarang", id);
-            cmd.Parameters.AddWithValue("@jumlah", jumlah);
-            cmd.ExecuteNonQuery();
-            refreshTableBarangMasuk();
-            con.Close();
+            Data.UpdateMasuk("Barang", "jumlah_barang", jumlah, "id_barang", id);
         }
 
         private void daftarBarangBtn_Click(object sender, RoutedEventArgs e)
@@ -129,10 +114,7 @@ namespace ProjectUAS
 
         private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dadapter = new SqlDataAdapter("select * from BarangMasuk where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarangMasuk.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarangMasuk.ItemsSource = Data.fillTable("select * from BarangMasuk where namaBarang LIKE '%" + searchInput.Text + "%'").Tables[0].AsDataView();
         }
 
         private void barangKeluarBtn_Click(object sender, RoutedEventArgs e)

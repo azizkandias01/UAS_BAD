@@ -22,10 +22,8 @@ namespace ProjectUAS
     /// </summary>
     public partial class LoginWindow : Window
     {
-        SqlDataAdapter dadapter;
-        DataSet dset;
-        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
-        SqlConnection con = new SqlConnection(connstring);
+        koneksi Data = new koneksi();
+        SqlConnection con = koneksi.SqlConnection();
         string username = "";
         string password = "";
         public LoginWindow()

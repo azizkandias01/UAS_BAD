@@ -22,10 +22,8 @@ namespace ProjectUAS
     public partial class TambahBarangKeluar : Window
     {
         BarangMasuk barangMasuk = new BarangMasuk();
-        SqlDataAdapter dadapter;
-        DataSet dset;
-        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
-        SqlConnection con = new SqlConnection(connstring);
+        koneksi Data = new koneksi();
+        SqlConnection con = koneksi.SqlConnection();
         Boolean isSelected = false;
         int jumlahLama = 0;
         public TambahBarangKeluar()
@@ -36,10 +34,7 @@ namespace ProjectUAS
         }
         private void refreshTable()
         {
-            dadapter = new SqlDataAdapter("select * from Barang where nama_barang LIKE '%" + searchInputTambah.Text + "%'", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarangTambah.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarangTambah.ItemsSource = Data.fillTable("select * from Barang where nama_barang LIKE '%" + searchInputTambah.Text + "%'").Tables[0].AsDataView();
         }
 
         private void dataBarangTambah_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,26 +66,15 @@ namespace ProjectUAS
         {
             try
             {
+                    con.Open();
                     String tanggal = tanggalBarang.SelectedDate.Value.Date.ToShortDateString().ToString();
                     string nama = namaBarang.Text;
                     int harga = Convert.ToInt32(hargaBarang.Text);
                     int id = Convert.ToInt32(idBarang.Text);
                     string supplier = supplierBarang.Text;
-                int jumlah = Convert.ToInt32(jumlahBarang.Text);
-                if (con.State == ConnectionState.Closed)
-                    {
-                        con.Open();
-                        string query = "INSERT INTO BarangKeluar values(@idbarang,@nama_barang,@jumlah_barang,@harga_barang,@customer,@tanggal)";
-                        SqlCommand cmd = new SqlCommand(query, con);
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.AddWithValue("@idbarang", id);
-                        cmd.Parameters.AddWithValue("@nama_barang", nama);
-                        cmd.Parameters.AddWithValue("@jumlah_barang", jumlah);
-                        cmd.Parameters.AddWithValue("@harga_barang", harga);
-                        cmd.Parameters.AddWithValue("@customer", supplier);
-                        cmd.Parameters.AddWithValue("@tanggal", tanggal);
-                        cmd.ExecuteNonQuery();
-                    }                
+                    int jumlah = Convert.ToInt32(jumlahBarang.Text);
+                    Data.Insert("BarangKeluar", id, nama, jumlah, harga, supplier, tanggal);
+                                    
             }
             catch (Exception ex)
             {
@@ -112,12 +96,7 @@ namespace ProjectUAS
                     int jumlah = Convert.ToInt32(jumlahBarang.Text);
                     int id = Convert.ToInt32(idBarang.Text);
                     con.Open();
-                    string query = "UPDATE Barang SET jumlah_barang-=@jumlah_barang WHERE id_barang=@idbarang";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@idbarang", id);
-                    cmd.Parameters.AddWithValue("@jumlah_barang", jumlah);
-                    cmd.ExecuteNonQuery();
+                    Data.UpdateMasuk("Barang", "jumlah_barang", jumlah, "id_barang", id);
                 }
             }
             catch (Exception ex)

@@ -93,6 +93,7 @@
     <Compile Include="EditBarangMasuk.xaml.cs">
       <DependentUpon>EditBarangMasuk.xaml</DependentUpon>
     </Compile>
+    <Compile Include="koneksi.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>

@@ -21,10 +21,8 @@ namespace ProjectUAS
     /// </summary>
     public partial class BarangKeluar : Window
     {
-        SqlDataAdapter dadapter;
-        DataSet dset;
-        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
-        SqlConnection con = new SqlConnection(connstring);
+        koneksi Data = new koneksi();
+        SqlConnection con = koneksi.SqlConnection();
         Boolean isSelected = false;
         int id = 0;
         int idBarangKeluar = 0;
@@ -38,10 +36,7 @@ namespace ProjectUAS
         }
         public void fillTable()
         {
-            dadapter = new SqlDataAdapter("select * from BarangKeluar", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarangKeluar.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarangKeluar.ItemsSource = Data.fillTable("select * from BarangKeluar").Tables[0].AsDataView();
         }
         private void homeBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -80,13 +75,9 @@ namespace ProjectUAS
                 if (MessageBox.Show("Yakin Menghapus Data?", "Hapus Data", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     con.Open();
-                    string query = "DELETE FROM BarangKeluar WHERE idBarangKeluar = @idBarangMasuk";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@idbarangMasuk", idBarangKeluar);
-                    cmd.ExecuteNonQuery();
-                    fillTable();
+                    Data.Delete("BarangKeluar", "idBarangKeluar", idBarangKeluar);
                     updateJumlah();
+                    fillTable();
                     con.Close();
                 }
             }
@@ -98,13 +89,7 @@ namespace ProjectUAS
         }
         private void updateJumlah()
         {
-            string query = "UPDATE Barang SET jumlah_barang+=@jumlah WHERE id_barang = @idBarang";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@idbarang", id);
-            cmd.Parameters.AddWithValue("@jumlah", jumlah);
-            cmd.ExecuteNonQuery();
-            fillTable();
+            Data.Update("Barang", "jumlah_barang", jumlah, "id_barang", id);
         }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
@@ -123,10 +108,7 @@ namespace ProjectUAS
 
         private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dadapter = new SqlDataAdapter("select * from BarangKeluar where namaBarang LIKE '%" + searchInput.Text + "%'", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarangKeluar.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarangKeluar.ItemsSource = Data.fillTable("select * from BarangKeluar where namaBarang LIKE '%" + searchInput.Text + "%'").Tables[0].AsDataView();
         }
 
         private void dataBarangKeluar_SelectionChanged(object sender, SelectionChangedEventArgs e)

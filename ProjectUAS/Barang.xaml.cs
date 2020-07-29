@@ -29,36 +29,22 @@ namespace ProjectUAS
         public string nama { get; set; }
         public string harga { get; set; }
         public string jumlah { get; set; }
-        SqlDataAdapter dadapter;
-        DataSet dset;
-        static string connstring = @"Data Source = (localdb)\MSSQLLOCALDB.; Initial Catalog = DBGudang; Integrated Security = True; Pooling = False";
-        SqlConnection con = new SqlConnection(connstring);
+        koneksi Data = new koneksi();
+        SqlConnection con = koneksi.SqlConnection();
         public Barang()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-
-            dadapter = new SqlDataAdapter("select * from Barang", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarang.ItemsSource = dset.Tables[0].AsDataView();
+            dataBarang.ItemsSource = Data.fillTable("select * from Barang").Tables[0].AsDataView();
+ 
         }
         public void insert()
-        {
-            
+        {            
             try
             {
-                if (con.State == ConnectionState.Closed)
-                {
                     con.Open();
-                    string query = "INSERT INTO Barang values(@nama_barang,@jumlah_barang,@harga_barang)";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@nama_barang", namaInput.Text);
-                    cmd.Parameters.AddWithValue("@jumlah_barang", jumlahInput.Text);
-                    cmd.Parameters.AddWithValue("@harga_barang", hargaInput.Text);
-                    cmd.ExecuteNonQuery();
-                }
+                    Data.Insert("Barang", namaInput.Text, jumlahInput.Text, hargaInput.Text);
+                
             }catch(Exception ex)
             {
                 MessageBox.Show("Error : "+ex.Message);
@@ -75,17 +61,16 @@ namespace ProjectUAS
         {
             try
             {
-                if (con.State == ConnectionState.Closed)
+                con.Open();
+                if (MessageBox.Show("Dengan mengupdate semua data pada barang masuk dan keluar akan terupdate?", "Update?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    con.Open();
-                    string query = "UPDATE BARANG SET nama_barang=@nama_barang,jumlah_barang = @jumlah_barang, harga_barang=@harga_barang WHERE id_barang = @id_barang";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@nama_barang", namaInput.Text);
-                    cmd.Parameters.AddWithValue("@jumlah_barang", jumlahInput.Text);
-                    cmd.Parameters.AddWithValue("@harga_barang", hargaInput.Text);
-                    cmd.Parameters.AddWithValue("@id_barang", idInput.Text);
-                    cmd.ExecuteNonQuery();
+
+                }
+                else
+                {
+                    Data.Update("Barang", "nama_barang", namaInput.Text, "jumlah_barang", jumlahInput.Text, "harga_barang", hargaInput.Text, "id_barang", idInput.Text);
+                    Data.Update("BarangMasuk", "NamaBarang", namaInput.Text,"Harga",hargaInput.Text,nama);
+                    Data.Update("BarangKeluar", "namaBarang", namaInput.Text,"hargaBarang",hargaInput.Text,nama);
                 }
             }
             catch (Exception ex)
@@ -103,15 +88,9 @@ namespace ProjectUAS
         {
             try
             {
-                if (con.State == ConnectionState.Closed)
-                {
                     con.Open();
-                    string query = "DELETE FROM Barang WHERE id_barang=@id_barang";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@id_barang", idInput.Text);
-                    cmd.ExecuteNonQuery();
-                }
+                    Data.Delete("Barang", "id_barang", Convert.ToInt32(idInput.Text));
+                
             }
             catch (Exception ex)
             {
@@ -127,17 +106,11 @@ namespace ProjectUAS
 
         private void searchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dadapter = new SqlDataAdapter("select * from Barang where nama_barang LIKE '%" + searchInput.Text + "%'", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarang.ItemsSource = dset.Tables[0].AsDataView();
+           dataBarang.ItemsSource = Data.fillTable("select * from Barang where nama_barang LIKE '%" + searchInput.Text + "%'").Tables[0].AsDataView();
         }
         private void refreshTable()
         {
-            dadapter = new SqlDataAdapter("select * from Barang where nama_barang LIKE '%" + searchInput.Text + "%'", connstring);
-            dset = new System.Data.DataSet();
-            dadapter.Fill(dset);
-            dataBarang.ItemsSource = dset.Tables[0].AsDataView();
+           dataBarang.ItemsSource =Data.fillTable("select * from Barang").Tables[0].AsDataView();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -177,7 +150,7 @@ namespace ProjectUAS
             try
             {
                 DataRowView row = (DataRowView)dataBarang.SelectedItems[0];
-                string nama = row["nama_barang"].ToString();
+                nama = row["nama_barang"].ToString();
                 int id = Convert.ToInt32(row["id_barang"]);
                 int jumlah = Convert.ToInt32(row["jumlah_barang"]);
                 int harga = Convert.ToInt32(row["harga_barang"]);
